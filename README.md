@@ -1,12 +1,13 @@
 # 🌾 Crop Recommendation System
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/d99745ff-1376-4c2c-98b6-87bb4ace2a45)
+
 
 
 > **An intelligent ML-based system that recommends the best crop based on soil and weather conditions!** 🌱
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python" />
+  <img src="https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python" />
   <img src="https://img.shields.io/badge/ML-Model-green?style=for-the-badge" />
   <img src="https://img.shields.io/badge/License-MIT-lightgrey?style=for-the-badge" />
 </p>
@@ -64,7 +65,9 @@ This **Crop Recommendation System** suggests the best crop to plant based on **s
 
 | Search Crop Feature | Prediction Output |
 |:-------------------:|:-----------------:|
-| ![search-page](assets/search.png) | ![prediction-page](assets/predict.png) |
+| ![image](https://github.com/user-attachments/assets/431a7447-fddc-4f1e-81ba-78096a43f048)
+ | ![image](https://github.com/user-attachments/assets/8c523fa8-c283-4d8c-8e7f-2ccb9232a14e)
+ |
 
 ---
 
