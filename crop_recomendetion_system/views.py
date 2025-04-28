@@ -8,6 +8,8 @@ import numpy as np
 # Correct full path to the model
 model_path = os.path.join(settings.BASE_DIR, 'crop_recomendetion_system', 'models', 'crop_recommendation_model.pkl')
 csv_path = os.path.join(settings.BASE_DIR, 'crop_recomendetion_system', 'models', 'crop_recommendation.csv')
+csv_path = os.path.join(os.path.crop_recomendetion_system(__file__), 'models', 'crop_recommendation.csv')
+
 
 
 with open(model_path, 'rb') as f:
