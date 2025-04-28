@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CropAdvisor - Crop Recommendation System</title>
+	<link rel="icon" href="https://img.icons8.com/color/48/000000/wheat.png" type="image/png">
+
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+	<style>
+		body {
+			font-family: 'Arial', sans-serif;
+			background-color: #f8f9f0;
+		}
+
+		.navbar {
+			background-color: rgba(255, 255, 255, 0.95) !important;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+		}
+
+		.navbar-brand {
+			color: #4a8e3b !important;
+			font-weight: bold;
+			font-size: 1.5rem;
+		}
+
+		.hero {
+			background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://source.unsplash.com/1600x900/?farm,sunset,crops') no-repeat center center;
+			background-size: cover;
+			color: white;
+			padding: 180px 0 120px;
+			position: relative;
+			overflow: hidden;
+			margin-bottom: 30px;
+		}
+
+		.hero::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 80px;
+			background: linear-gradient(to top, #f8f9f0, transparent);
+		}
+
+		.hero h1 {
+			margin-top: -50px;
+			font-size: 3.5rem;
+			font-weight: bold;
+			margin-bottom: 20px;
+			text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+		}
+
+		.hero p {
+			font-size: 1.3rem;
+			max-width: 700px;
+			margin: 0 auto 50px;
+			text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+		}
+
+		.hero-buttons .btn {
+			margin: 0 10px;
+			padding: 12px 30px;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			border-radius: 30px;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+		}
+
+		.btn-predict {
+			background-color: #4a8e3b;
+			border: none;
+			color: white;
+		}
+
+		.btn-predict:hover {
+			background-color: #3a7a2d;
+			transform: translateY(-2px);
+		}
+
+		.btn-search {
+			background-color: #f0f4f8;
+			border: none;
+			color: #2c5e1a;
+		}
+
+		.btn-search:hover {
+			background-color: #e0e8e0;
+			transform: translateY(-2px);
+		}
+
+		.container {
+			background: #ffffff;
+			border-radius: 20px;
+			padding: 40px;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+			margin-top: -70px;
+			position: relative;
+			z-index: 10;
+			border: 1px solid #e0e8e0;
+		}
+
+		h1 {
+			color: #4a8e3b;
+			text-align: center;
+			margin-bottom: 40px;
+		}
+
+		.form-label {
+			font-weight: bold;
+			color: #4a6b3d;
+		}
+
+		.form-control {
+			border-radius: 10px;
+			border: 2px solid #d0e0c8;
+			padding: 10px 15px;
+			background-color: #fcfdf8;
+		}
+
+		.form-control:focus {
+			border-color: #4a8e3b;
+			box-shadow: 0 0 0 0.2rem rgba(74, 142, 59, 0.25);
+		}
+
+		.btn-primary {
+			background-color: #4a8e3b;
+			border: none;
+			border-radius: 30px;
+			padding: 12px 30px;
+			font-size: 1.1rem;
+			font-weight: 600;
+			transition: all 0.3s ease;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
+
+		.btn-primary:hover {
+			background-color: #3a7a2d;
+			transform: translateY(-2px);
+			box-shadow: 0 4px 10px rgba(74, 142, 59, 0.3);
+		}
+
+		.card {
+			margin: 30px auto;
+			max-width: 800px;
+			border-radius: 15px;
+			overflow: hidden;
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+			border: 1px solid #e0e8e0;
+		}
+
+		.card-body {
+			padding: 30px;
+			background-color: #f8f9f0;
+		}
+
+		footer {
+			background-color: #2c5e1a;
+			color: white;
+			padding: 30px 0;
+			margin-top: 70px;
+		}
+
+		.logo {
+			height: 40px;
+			margin-right: 10px;
+		}
+
+		.features-section {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 40px 20px;
+		}
+
+		.section-title {
+			color: #76B947;
+			font-size: 35px;
+			margin-bottom: 40px;
+			text-align: center;
+			font-weight: bold;
+		}
+
+		.features-container {
+			display: flex;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			gap: 20px;
+		}
+
+		.feature-item {
+			flex: 1;
+			min-width: 300px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+		}
+
+		.feature-title {
+			color: #4A7C59;
+			font-size: 20px;
+			margin-bottom: 15px;
+		}
+
+		.feature-icon {
+			margin-bottom: 20px;
+			height: 100px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.feature-description {
+			color: #4A7C59;
+			font-size: 16px;
+			line-height: 1.5;
+			max-width: 300px;
+		}
+
+		/* Responsive adjustments */
+		@media (max-width: 768px) {
+			.features-container {
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.feature-item {
+				margin-bottom: 40px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+		<div class="container-fluid px-4">
+			<a class="navbar-brand" href="/">
+				<img src="https://img.icons8.com/color/48/000000/wheat.png" alt="CropAdvisor Logo" class="logo">
+				CropAdvisor
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		</div>
+	</nav>
+
+	<div class="hero text-center"
+		style="background-image: url('../static/images/farm.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; margin-top: 50px;">
+
+		<div class="container-fluid">
+			<h1>Smart Crop Recommendations</h1>
+			<p>Harness the power of AI to optimize your farm's yield. Our advanced system analyzes your soil and climate
+				data to provide tailored crop suggestions.</p>
+			<div class="hero-buttons">
+				<a href="{% url 'recomend' %}" class="btn btn-predict">PREDICT NOW</a>
+				<a href="{% url 'search' %}" class="btn btn-search">SEARCH CROP</a>
+			</div>
+		</div>
+	</div>
+
+	<section class="features-section">
+		<h2 class="section-title">What We Do??</h2>
+
+		<div class="features-container">
+			<div class="feature-item">
+				<h3 class="feature-title">PREDICTION</h3>
+				<div class="feature-icon prediction-icon">
+					<svg width="120" height="100" viewBox="0 0 120 100">
+						<!-- Document with lines -->
+						<rect x="15" y="10" width="60" height="80" fill="none" stroke="#000" stroke-width="2" />
+						<line x1="25" y1="30" x2="65" y2="30" stroke="#000" stroke-width="2" />
+						<line x1="25" y1="45" x2="65" y2="45" stroke="#000" stroke-width="2" />
+						<line x1="25" y1="60" x2="65" y2="60" stroke="#000" stroke-width="2" />
+						<!-- Graph dots and line -->
+						<circle cx="25" cy="75" r="3" fill="#8B4513" />
+						<circle cx="40" cy="70" r="3" fill="#8B4513" />
+						<circle cx="55" cy="80" r="3" fill="#8B4513" />
+						<line x1="25" y1="75" x2="40" y2="70" stroke="#8B4513" stroke-width="1.5" />
+						<line x1="40" y1="70" x2="55" y2="80" stroke="#8B4513" stroke-width="1.5" />
+						<!-- Magnifying glass -->
+						<circle cx="85" cy="40" r="20" fill="#B0E0FF" stroke="#000" stroke-width="2" />
+						<text x="85" y="48" font-size="24" text-anchor="middle">?</text>
+						<rect x="95" y="55" width="5" height="20" fill="#000" transform="rotate(45, 95, 55)" />
+					</svg>
+				</div>
+				<p class="feature-description">On basis of region, we predict factors for better agrian practices</p>
+			</div>
+
+			<div class="feature-item">
+				<h3 class="feature-title">RECOMMENDATION</h3>
+				<div class="feature-icon recommendation-icon">
+					<img src="../static/images/recommend.png" style="width: 115px;">
+				</div>
+				<p class="feature-description">Based on Prediction we suggest the best crops that should be planted</p>
+			</div>
+
+			<div class="feature-item">
+				<h3 class="feature-title">INFORMATION</h3>
+				<div class="feature-icon information-icon">
+					<img src="../static/images/info.png" style="width: 120px;">
+				</div>
+				<p class="feature-description">Information on various crops that could be cultivated commercially</p>
+			</div>
+		</div>
+	</section>
+
+    <footer class="text-center">
+		<p>&copy; 2023 CropAdvisor. All rights reserved.</p>
+		<div class="mt-3">
+			<a href="#" class="text-white me-4"><i class="fab fa-facebook-f fa-lg"></i></a>
+			<a href="#" class="text-white me-4"><i class="fab fa-twitter fa-lg"></i></a>
+			<a href="#" class="text-white me-4"><i class="fab fa-instagram fa-lg"></i></a>
+			<a href="#" class="text-white"><i class="fab fa-linkedin-in fa-lg"></i></a>
+		</div>
+		<p class="mt-3 mb-0">Contact us: info@cropadvisor.com | +1 (555) 123-4567</p>
+	</footer>

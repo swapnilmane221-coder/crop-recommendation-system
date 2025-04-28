@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+
+  <head>
+    <meta charset="UTF-8" />
+    <title>Crop Recommendation</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+  <body>
+    <div class="form-container">
+      <h2>🌿 Enter Your Farm Details</h2>
+      <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="Nitrogen" placeholder="Nitrogen" required />
+        <input
+          type="text"
+          name="Phosphorus"
+          placeholder="Phosphorus"
+          required
+        />
+        <input type="text" name="Potassium" placeholder="Potassium" required />
+        <input
+          type="text"
+          name="Temperature"
+          placeholder="Temperature (°C)"
+          required
+        />
+        <input
+          type="text"
+          name="Humidity"
+          placeholder="Humidity (%)"
+          required
+        />
+        <input type="text" name="pH" placeholder="pH" required />
+        <input
+          type="text"
+          name="Rainfall"
+          placeholder="Rainfall (mm)"
+          required
+        />
+        <button class="button-wrapper" type="submit">Predict Crop</button>
+      </form>
+      {% if result %}
+  <div class="result-section">
+    <h3>🌾 Recommended Crop for Your Farm:</h3>
+    <div class="crop-box">
+      <div class="crop-info">
+        <h2>{{ result }} is the best crop to be cultivated right there</h2>
+        <p>{{ details.description }}</p>
+        <h4>Crop Details:</h4>
+        <table>
+          <tr><th>Soil Type</th><td>{{ details.soil }}</td></tr>
+          <tr><th>Climate</th><td>{{ details.climate }}</td></tr>
+          <tr><th>Water Needs</th><td>{{ details.water }}</td></tr>
+          <tr><th>Growing Season</th><td>{{ details.season }}</td></tr>
+          <tr><th>Harvest Time</th><td>{{ details.harvest }}</td></tr>
+        </table>
+      </div>
+      <div class="crop-img">
+        <img src="{% static 'images/' %}{{ result }}.jpg" alt="{{ result }}" width="200" />
+</div>
+    </div>
+  </div>
+{% endif %}
+
+    
+
+    </div>
+  </body>
+</html>

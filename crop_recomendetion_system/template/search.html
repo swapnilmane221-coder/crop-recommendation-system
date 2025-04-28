@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌱 Crop Search</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #a8e063, #56ab2f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .search-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 400px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #2e7d32;
+            font-size: 28px;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 2px solid #56ab2f;
+            border-radius: 8px;
+            outline: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #2e7d32;
+            background-color: #f1f8e9;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background: #56ab2f;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #2e7d32;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e8f5e9;
+            border-radius: 8px;
+            color: #2e7d32;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="search-container">
+     <form method="post">
+          {% csrf_token %}
+    <h1>🌾 Search for a Crop</h1>
+    <input type="text" name="crop_inp" id="crop" placeholder="Enter crop name..." >
+    <br>
+    <button onclick="searchCrop()" type="submit">🔍 Search</button>
+     </form>
+     <div class="result" id="resultDiv" style="{% if crop_name %} display:block;{% else %} display:none;{% endif %}">
+        <h2 id="cropName">{{ crop_name|title }}</h2>  <!-- Title case like "Mango" -->
+        <p><strong>Ideal Conditions:</strong></p>
+        <ul id="cropDetails">
+            {% if Nitrogen %}
+                <li>Nitrogen: {{ Nitrogen }}</li>
+            
+                <li>Phosphorus: {{ Phosphorus }}</li>
+            
+                <li>Potassium: {{ Potassium }}</li>
+            
+                <li>Temperature: {{ Temperature }} °C</li>
+            
+                <li>Humidity: {{ Humidity }} %</li>
+           
+                <li>pH: {{ ph }}</li>
+            
+                <li>Rainfall: {{ Rainfall }} mm</li>
+        
+        </ul>
+    
+        
+            <img src="{% static 'images/' %}{{crop_name}}.jpg" alt="{{ crop_name }}" width="200">
+        {% endif %}
+    </div>
+    
+</div>
+
+
+</body>
+</html>
