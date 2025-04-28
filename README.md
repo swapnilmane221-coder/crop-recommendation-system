@@ -1,6 +1,7 @@
 # 🌾 Crop Recommendation System
 
-![Crop Recommendation Banner](assets/banner.png)
+![Uploading image.png…]()
+
 
 > **An intelligent ML-based system that recommends the best crop based on soil and weather conditions!** 🌱
 
