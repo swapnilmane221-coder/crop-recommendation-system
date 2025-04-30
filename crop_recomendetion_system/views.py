@@ -5,6 +5,8 @@ import os
 import pickle
 from django.conf import settings
 import numpy as np
+from django.http import HttpResponse
+
 # Correct full path to the model
 model_path = os.path.join(settings.BASE_DIR, 'crop_recomendetion_system', 'models', 'crop_recommendation_model.pkl')
 # csv_path = os.path.join(settings.BASE_DIR, 'crop_recomendetion_system', 'models', 'crop_recommendation.csv')
