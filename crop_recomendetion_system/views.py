@@ -7,7 +7,7 @@ from django.conf import settings
 import numpy as np
 # Correct full path to the model
 model_path = os.path.join(settings.BASE_DIR, 'crop_recomendetion_system', 'models', 'crop_recommendation_model.pkl')
-csv_path = os.path.join(settings.BASE_DIR, 'crop_recomendetion_system', 'models', 'crop_recommendation.csv')
+# csv_path = os.path.join(settings.BASE_DIR, 'crop_recomendetion_system', 'models', 'crop_recommendation.csv')
 
 
 with open(model_path, 'rb') as f:
@@ -42,6 +42,10 @@ def home(request):
      return render(request, 'index.html')
 
 def search(request):
+     csv_path = os.path.join(settings.BASE_DIR, 'crop_recomendetion_system', 'models', 'crop_recommendation.csv')
+    
+     if not os.path.exists(csv_path):
+        return HttpResponse(f"CSV not found at: {csv_path}", status=500)
      df = pd.read_csv(csv_path)
      crop_names=df['label'].unique()
      crop_search=request.POST.get('crop_inp')
