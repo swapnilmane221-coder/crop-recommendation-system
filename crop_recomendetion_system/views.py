@@ -10,7 +10,6 @@ model_path = os.path.join(settings.BASE_DIR, 'crop_recomendetion_system', 'model
 csv_path = os.path.join(settings.BASE_DIR, 'crop_recomendetion_system', 'models', 'crop_recommendation.csv')
 
 
-
 with open(model_path, 'rb') as f:
     model = pickle.load(f)
 
@@ -43,7 +42,7 @@ def home(request):
      return render(request, 'index.html')
 
 def search(request):
-     df=pd.read_csv(csv_path)
+     df = pd.read_csv(csv_path)
      crop_names=df['label'].unique()
      crop_search=request.POST.get('crop_inp')
      if request.method == 'POST':
